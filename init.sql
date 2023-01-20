@@ -1,0 +1,2 @@
+CREATE USER sporting_scout WITH PASSWORD 'Abc@123456';
+ALTER USER sporting_scout WITH SUPERUSER;
