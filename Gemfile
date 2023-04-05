@@ -39,7 +39,12 @@ gem "bootsnap", require: false
 gem "amazing_print"
 gem "rails_semantic_logger"
 
+gem 'devise', '~> 4.9', '>= 4.9.2'
+gem 'devise-jwt'
+gem 'rack-cors'
+
 group :development, :test do
+  gem 'annotate_models', '~> 1.0', '>= 1.0.1'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
