@@ -8,5 +8,9 @@ Rails.application.routes.draw do
                        sessions: "users/sessions",
                        registrations: "users/registrations",
                      }
-  get "/current_user", to: "current_user#index"
+  namespace :api do
+    namespace :v1 do
+      get "/current_user", to: "current_user#index"
+    end
+  end
 end
