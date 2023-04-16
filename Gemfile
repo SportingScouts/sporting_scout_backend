@@ -8,7 +8,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.1"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
-gem 'devise', '~> 4.9'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -34,14 +34,18 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem "rack-cors"
+gem "rack-cors"
 
 gem "amazing_print"
 gem "rails_semantic_logger"
+gem 'devise', '~> 4.9'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "annotate_models"
 end
 
 group :development do
