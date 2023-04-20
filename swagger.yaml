@@ -1,0 +1,161 @@
+openapi: 3.0.3
+info:
+  title: Sporting Scout Backend
+  description: |-
+    This is a Swagger Document for Backend APIs of the Sporting Scout Backend Service
+  contact:
+    email: kareemhossam@egyptscouts.org
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: A&A
+    description: Authentication and Authorization APIs
+  # - name: Current User
+  #   description: Get current logged in user given token
+paths:
+  /signup:
+    post:
+      tags:
+        - A&A
+      summary: Register a new User
+      description: Register a new User
+      operationId: signup
+      requestBody:
+        description: User Object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+  /login:
+    post:
+      tags:
+        - A&A
+      summary: create a new user session
+      requestBody:
+        description: User Object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/login_200_response'
+          headers:
+            Authorization:
+              description: bearer token
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Invalid Email or password.
+  /logout:
+    delete:
+      tags:
+        - A&A
+      summary: terminate user session
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/logout_200_response'
+          headers:
+            Authorization:
+              description: bearer token
+              schema:
+                type: string
+  # /api/v1/current_user:
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            email: 
+              type: string
+              example: abc@xyz.com
+            password:
+              type: string
+              example: password
+    login_200_response:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            code: 
+              type: integer
+              example: 200
+            message: 
+              type: string
+              example: Logged in sucessfully.
+        data:
+          type: object
+          properties:
+            id:
+              type: integer 
+              example: 2
+              description: user id
+            email: 
+              type: string
+              example: test@test.com
+              description: user email
+            created_at: 
+              type: string
+              example: '2023-04-16T19:42:14.875Z'
+              description: creation timestamp
+    logout_200_response:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: logged out successfully
+  requestBodies:
+    user:
+      description: user object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/user'
+  # securitySchemes:
+  #   petstore_auth:
+  #     type: oauth2
+  #     flows:
+  #       implicit:
+  #         authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+  #         scopes:
+  #           write:pets: modify pets in your account
+  #           read:pets: read your pets
+  #   api_key:
+  #     type: apiKey
+  #     name: api_key
+  #     in: header
